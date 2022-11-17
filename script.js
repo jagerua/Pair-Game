@@ -155,44 +155,64 @@ let counter = 0;
 // ------------------------ Rotate card on click -------------------//
 
 
-  let click = document.addEventListener('click', function (e) {
+  document.addEventListener('click', function (e) {
     let flip = e.target.closest('.flipper').classList.toggle('is-flipped');
     let cardId = e.target.closest('.flip-container').getAttribute('id');
     let cardDiv = e.target.closest('.flip-container');
 
-    addingToArr(cardId, cardDiv);
+    addingToArr(cardId, cardDiv, flip);
     // console.log(e.target.closest('.flip-container').getAttribute('id'));
   });
-
   
 // ------------------------ Rotate card on click -------------------//
 
-// ------------------------ Rotate card on click -------------------//
+// ------------------------ Adding to Arr to check Match -------------------//
 
   function addingToArr (cardId, cardDiv) {
-    if (counter !== 2) {
-      cardValue.push(cardId);
-      cardDiv.classList.add('open');
-      counter++;
-    } else {
-      matching();
+    cardValue.push(cardId);
+    cardStorage.push(cardDiv);
+    counter++;
+
+    if (counter === 2) {
+      console.log('start');
+      matching(cardValue, cardStorage);
       counter = 0;
     }
-    
-    console.log(cardValue);
-    console.log(counter);
-    console.log(cardDiv);
+
   }
 
-// ------------------------ Rotate card on click -------------------//
+// ------------------------ Adding to Arr to check Match -------------------//
 
 // ------------------------ Checking for Match (card === card) -------------------//
 
 
-function matching () {
+function matching (flip) {
+  let cardOne = cardStorage[0];
+  let cardTwo = cardStorage[1];
+
+  console.log(cardOne);
+  console.log(cardTwo);
+
   if (cardValue[0] === cardValue[1]) {
-    
+    // result += 10;
+    cardOne.classList.add('match');
+    cardTwo.classList.add('match');
+    cardOne.removeEventListener('click', function (e) {
+      e.target.closest('.flipper').classList.remove('is-flipped');
+    });
+    cardTwo.removeEventListener('click', function (e) {
+      e.target.closest('.flipper').classList.remove('is-flipped');
+    });
+  } else {
+    // cardOne.classList.toggle('is-flipped');
+    // cardTwo.classList.toggle('is-flipped');
   }
+
+  cardStorage = [];
+  cardValue = [];
 };
 
+  console.log(cardValue);
+  console.log(counter);
+  console.log(cardStorage);
 // ------------------------ Checking for Match (card === card) -------------------//

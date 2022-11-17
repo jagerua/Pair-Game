@@ -375,5 +375,5 @@ footer {
 }
 
 .match {
-  display: none;
+  visibility: hidden;
 }
