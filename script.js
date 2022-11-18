@@ -1,11 +1,11 @@
 const cardsTable = document.querySelector('.game-desk');
+let scoreDiv = document.querySelector('.scoreNum');
 
 const easyBtn = document.querySelector('.easy');
 const hardBtn = document.querySelector('.hard');
 const resetBtn = document.querySelector('.reset');
 
 let mode = 12;
-
 
 
 const cardsArr = [
@@ -159,9 +159,8 @@ let counter = 0;
     let flip = e.target.closest('.flipper').classList.toggle('is-flipped');
     let cardId = e.target.closest('.flip-container').getAttribute('id');
     let cardDiv = e.target.closest('.flip-container');
-
-    addingToArr(cardId, cardDiv, flip);
-    // console.log(e.target.closest('.flip-container').getAttribute('id'));
+    
+    addingToArr(cardId, cardDiv);
   });
   
 // ------------------------ Rotate card on click -------------------//
@@ -172,13 +171,12 @@ let counter = 0;
     cardValue.push(cardId);
     cardStorage.push(cardDiv);
     counter++;
-
+    
     if (counter === 2) {
       console.log('start');
       matching(cardValue, cardStorage);
       counter = 0;
     }
-
   }
 
 // ------------------------ Adding to Arr to check Match -------------------//
@@ -186,7 +184,8 @@ let counter = 0;
 // ------------------------ Checking for Match (card === card) -------------------//
 
 
-function matching (flip) {
+function matching () {
+  let score = +document.querySelector('.scoreNum').innerHTML;
   let cardOne = cardStorage[0];
   let cardTwo = cardStorage[1];
 
@@ -194,7 +193,6 @@ function matching (flip) {
   console.log(cardTwo);
 
   if (cardValue[0] === cardValue[1]) {
-    // result += 10;
     cardOne.classList.add('match');
     cardTwo.classList.add('match');
     cardOne.removeEventListener('click', function (e) {
@@ -203,9 +201,13 @@ function matching (flip) {
     cardTwo.removeEventListener('click', function (e) {
       e.target.closest('.flipper').classList.remove('is-flipped');
     });
-  } else {
-    // cardOne.classList.toggle('is-flipped');
-    // cardTwo.classList.toggle('is-flipped');
+    scoreDiv.innerHTML = score + 10;
+  } else if (cardValue[0] !== cardValue[1]) {
+    scoreDiv.innerHTML = score - 5;
+    setTimeout(function () {
+      cardTwo.querySelector('.flipper').classList.toggle('is-flipped');
+      cardOne.querySelector('.flipper').classList.toggle('is-flipped');
+    }, 500);
   }
 
   cardStorage = [];
@@ -216,3 +218,7 @@ function matching (flip) {
   console.log(counter);
   console.log(cardStorage);
 // ------------------------ Checking for Match (card === card) -------------------//
+
+// ------------------------ Score -------------------//
+
+// ------------------------ Score -------------------//
