@@ -79,7 +79,7 @@
 .youWin {
   font-size: 52px;
   margin-top: 60px;
-  color: #e70707;
+  color: #1b0aff;
   text-shadow: 6px 0 black, 0 3px black, 3px 0 black, 0 3px black;
 }
 
@@ -87,9 +87,9 @@
   font-size: 32px;
 }
 
-.scoreNumber {
-  font-size: 32px;
-  height: 50px !important;
+.modelScoreNumber {
+  font-size: 35px;
+  height: 45px !important;
 }
 
 .win span, .lose span {
@@ -97,7 +97,7 @@
   justify-content: center;
   align-items: center;
   width: 400px;
-  height: 70px;
+  height: 60px;
   font-family: 'Starborn';
   z-index: 3;
   /* color: #000; */
@@ -313,7 +313,7 @@ button {
 }
 
 .front, .back {
-	backface-visibility: hidden;
+	/* backface-visibility: hidden; */
 	position: absolute;
 	top: 0px;
   left: 0px;

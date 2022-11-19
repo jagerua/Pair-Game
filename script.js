@@ -5,8 +5,12 @@ const easyBtn = document.querySelector('.easy');
 const hardBtn = document.querySelector('.hard');
 const resetBtn = document.querySelector('.reset');
 
-let mode = 12;
+const modelWindow = document.querySelector('.modal');
+const winWindow = document.querySelector('.win');
+const loseWindow = document.querySelector('.lose');
+let resultScore = document.querySelector('.modelScoreNumber');
 
+let mode = 12;
 
 const cardsArr = [
   {
@@ -113,7 +117,7 @@ function showMode () {
   let cardEl = cardsRender(shuffleCards(cardsArr, mode));
   cardsTable.insertAdjacentHTML('afterBegin', cardEl);
 }
-
+// Render home screen with 12 cards
 showMode();
 // ------------------------ Making Easy & Hard modes -------------------//
 
@@ -173,7 +177,6 @@ let counter = 0;
     counter++;
     
     if (counter === 2) {
-      console.log('start');
       matching(cardValue, cardStorage);
       counter = 0;
     }
@@ -189,9 +192,6 @@ function matching () {
   let cardOne = cardStorage[0];
   let cardTwo = cardStorage[1];
 
-  console.log(cardOne);
-  console.log(cardTwo);
-
   if (cardValue[0] === cardValue[1]) {
     cardOne.classList.add('match');
     cardTwo.classList.add('match');
@@ -202,6 +202,7 @@ function matching () {
       e.target.closest('.flipper').classList.remove('is-flipped');
     });
     scoreDiv.innerHTML = score + 10;
+    cardsLeft();
   } else if (cardValue[0] !== cardValue[1]) {
     scoreDiv.innerHTML = score - 5;
     setTimeout(function () {
@@ -209,16 +210,59 @@ function matching () {
       cardOne.querySelector('.flipper').classList.toggle('is-flipped');
     }, 500);
   }
-
   cardStorage = [];
   cardValue = [];
+  
 };
-
-  console.log(cardValue);
-  console.log(counter);
-  console.log(cardStorage);
 // ------------------------ Checking for Match (card === card) -------------------//
 
-// ------------------------ Score -------------------//
+// console.log(emountOfCards.length);
+// ------------------------ Win \ Lose -------------------//
 
-// ------------------------ Score -------------------//
+  function win () {
+    resultScore.innerText = scoreDiv.innerText;
+    modelWindow.style.visibility = 'visible';
+    winWindow.style.visibility = 'visible';
+
+    setTimeout(function () {
+      modelWindow.style.visibility = 'hidden';
+      winWindow.style.visibility = 'hidden';
+    }, 2000);
+  }
+
+  function lose () {
+    resultScore.innerText = scoreDiv.innerText;
+    modelWindow.style.visibility = 'visible';
+    loseWindow.style.visibility = 'visible';
+
+    setTimeout(function () {
+      modelWindow.style.visibility = 'hidden';
+      winWindow.style.visibility = 'hidden';
+    }, 2000);
+  }
+
+// ------------------------ Win \ Lose -------------------//
+
+// ------------------------ Chacking if there is cards on table -------------------//
+
+function cardsLeft () {
+  let pairsHave = document.querySelectorAll(`.match`).length;
+  // Checking if num of cards = matching cards
+  if (pairsHave === cardsTable.children.length) {
+    // 
+    if (scoreDiv.innerHTML > 0) {
+      win();
+    } else {
+      lose();
+    }
+  }
+}
+// ------------------------ Chacking if there is cards on table -------------------//
+
+// ------------------------ Reset -------------------//
+
+resetBtn.addEventListener('click', function (e) {
+  scoreDiv.innerHTML = 0;
+});
+
+// ------------------------ Reset -------------------//
