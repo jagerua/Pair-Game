@@ -237,6 +237,7 @@ function matching () {
     setTimeout(function () {
       modelWindow.style.visibility = 'hidden';
       winWindow.style.visibility = 'hidden';
+      reset();
     }, 2000);
   };
 
@@ -248,6 +249,7 @@ function matching () {
     setTimeout(function () {
       modelWindow.style.visibility = 'hidden';
       loseWindow.style.visibility = 'hidden';
+      reset();
     }, 2000);
   };
 
