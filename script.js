@@ -134,7 +134,7 @@ easyBtn.addEventListener('click', function () {
   } else {
     cardsTable.innerHTML = '';
     showMode();
-    reset();
+    // reset();
   };
 });
 
@@ -152,7 +152,7 @@ hardBtn.addEventListener('click', function () {
     cardsTable.innerHTML = '';
     showMode();
   };
-  reset();
+  // reset();
 });
 
 // -------------------------- Making Easy & Hard modes ----------------------//
@@ -235,9 +235,9 @@ function matching () {
 
 // Hide Win screen after some time
     setTimeout(function () {
+      reset();
       modelWindow.style.visibility = 'hidden';
       winWindow.style.visibility = 'hidden';
-      reset();
     }, 2000);
   };
 
@@ -247,24 +247,23 @@ function matching () {
     loseWindow.style.visibility = 'visible';
 
     setTimeout(function () {
+      reset();
       modelWindow.style.visibility = 'hidden';
       loseWindow.style.visibility = 'hidden';
-      reset();
     }, 2000);
   };
 
 // --------------------------------- Win \ Lose ----------------------------//
 
-// --------------------------------- Win \ Lose ----------------------------//
+// ------------------------------------ Rate -------------------------------//
 
 function rate () {
   let modelResult = resultScore.forEach(function (el) {
      return el.innerText = +scoreDiv.innerText;
   });
 }
-  
 
-// --------------------------------- Win \ Lose ----------------------------//
+// ------------------------------------ Rate -------------------------------//
 
 // -------------------- Chacking if there is cards on table ----------------//
 
@@ -286,6 +285,10 @@ function cardsLeft () {
 
   function reset () {
     let pairsHave = document.querySelectorAll(`.match`);
+    let allCards = document.querySelectorAll('.cards');
+    allCards.forEach (function (el) {
+      el.querySelector('.flipper').classList.toggle('is-flipped');
+    })
     pairsHave.forEach( function (el) {
       el.classList.remove('match');
     })
