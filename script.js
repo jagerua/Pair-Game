@@ -87,7 +87,7 @@ const cardsArr = [
   }
 ];
 
-// --------------------------------- Card render -----------------------//
+// ------------------------------------ Card render --------------------------//
 let cardsRender = function (arr) {
   let itemsStr = '';
   // Rendering the HTML code to fill the page
@@ -113,13 +113,14 @@ function shuffleCards (arr, mode) {
   return arr.slice(0, mode).flatMap(i => [i, i]).sort(() => .5 - Math.random());
 }
 
+// Render amount of cards on card table
 function showMode () {
   let cardEl = cardsRender(shuffleCards(cardsArr, mode));
   cardsTable.insertAdjacentHTML('afterBegin', cardEl);
 }
 // Render home screen with 12 cards
 showMode();
-// ------------------------ Making Easy & Hard modes -------------------//
+// -------------------------- Making Easy & Hard modes ----------------------//
 
 // Click on Easy Btn to show 12 cards and refresh them
 easyBtn.addEventListener('click', function () {
@@ -133,6 +134,7 @@ easyBtn.addEventListener('click', function () {
   } else {
     cardsTable.innerHTML = '';
     showMode();
+    reset();
   };
 });
 
@@ -143,33 +145,35 @@ hardBtn.addEventListener('click', function () {
   cardsTable.style.removeProperty("alignContent");
   mode = 12;
 
+// Check if card table is empty  
   if (cardsTable.innerHTML === '') {
     showMode();
   } else {
     cardsTable.innerHTML = '';
     showMode();
   };
+  reset();
 });
 
-// ------------------------ Making Easy & Hard modes -------------------//
+// -------------------------- Making Easy & Hard modes ----------------------//
+// Storage to memories selected cards
 let cardStorage = [];
 let cardValue = [];
 let counter = 0;
 
-// ------------------------ Rotate card on click -------------------//
-
+// ---------------------------- Rotate card on click ------------------------//
 
   document.addEventListener('click', function (e) {
     let flip = e.target.closest('.flipper').classList.toggle('is-flipped');
     let cardId = e.target.closest('.flip-container').getAttribute('id');
     let cardDiv = e.target.closest('.flip-container');
-    
+
     addingToArr(cardId, cardDiv);
   });
   
-// ------------------------ Rotate card on click -------------------//
+// ---------------------------- Rotate card on click ------------------------//
 
-// ------------------------ Adding to Arr to check Match -------------------//
+// ------------------------ Adding to Arr to check Match --------------------//
 
   function addingToArr (cardId, cardDiv) {
     cardValue.push(cardId);
@@ -182,10 +186,9 @@ let counter = 0;
     }
   }
 
-// ------------------------ Adding to Arr to check Match -------------------//
+// ------------------------ Adding to Arr to check Match --------------------//
 
-// ------------------------ Checking for Match (card === card) -------------------//
-
+// ---------------------- Checking for Match (card === card) ----------------//
 
 function matching () {
   let score = +document.querySelector('.scoreNum').innerHTML;
@@ -214,21 +217,21 @@ function matching () {
   cardValue = [];
   
 };
-// ------------------------ Checking for Match (card === card) -------------------//
+// --------------------- Checking for Match (card === card) ----------------//
 
-// console.log(emountOfCards.length);
-// ------------------------ Win \ Lose -------------------//
+// --------------------------------- Win \ Lose ----------------------------//
 
   function win () {
     resultScore.innerText = scoreDiv.innerText;
     modelWindow.style.visibility = 'visible';
     winWindow.style.visibility = 'visible';
 
+// Hide Win screen after some time
     setTimeout(function () {
       modelWindow.style.visibility = 'hidden';
       winWindow.style.visibility = 'hidden';
     }, 2000);
-  }
+  };
 
   function lose () {
     resultScore.innerText = scoreDiv.innerText;
@@ -239,11 +242,11 @@ function matching () {
       modelWindow.style.visibility = 'hidden';
       winWindow.style.visibility = 'hidden';
     }, 2000);
-  }
+  };
 
-// ------------------------ Win \ Lose -------------------//
+// --------------------------------- Win \ Lose ----------------------------//
 
-// ------------------------ Chacking if there is cards on table -------------------//
+// -------------------- Chacking if there is cards on table ----------------//
 
 function cardsLeft () {
   let pairsHave = document.querySelectorAll(`.match`).length;
@@ -255,14 +258,33 @@ function cardsLeft () {
     } else {
       lose();
     }
-  }
-}
-// ------------------------ Chacking if there is cards on table -------------------//
+  };
+};
+// --------------------- Chacking if there is cards on table ---------------//
 
-// ------------------------ Reset -------------------//
+// ------------------------------- Click on Reset --------------------------//
 
-resetBtn.addEventListener('click', function (e) {
-  scoreDiv.innerHTML = 0;
-});
+  function reset () {
+    let pairsHave = document.querySelectorAll(`.match`);
+    pairsHave.forEach( function (el) {
+      el.classList.remove('match');
+    })
+    scoreDiv.innerHTML = 0;
+  };
 
-// ------------------------ Reset -------------------//
+// ------------------------------- Click on Reset --------------------------//
+
+// ----------------------------------- Reset -------------------------------//
+
+  resetBtn.addEventListener('click', function (e) {
+    reset();
+
+    if (cardsTable.innerHTML === '') {
+      showMode();
+    } else {
+      cardsTable.innerHTML = '';
+      showMode();
+    };
+  });
+
+// ----------------------------------- Reset -------------------------------//
