@@ -247,7 +247,7 @@ function matching () {
 
     setTimeout(function () {
       modelWindow.style.visibility = 'hidden';
-      winWindow.style.visibility = 'hidden';
+      loseWindow.style.visibility = 'hidden';
     }, 2000);
   };
 
