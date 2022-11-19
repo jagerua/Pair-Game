@@ -87,6 +87,11 @@
   font-size: 32px;
 }
 
+.scoreNum {
+  font-size: 35px;
+  height: 45px !important;
+}
+
 .modelScoreNumber {
   font-size: 35px;
   height: 45px !important;

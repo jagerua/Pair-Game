@@ -8,7 +8,7 @@ const resetBtn = document.querySelector('.reset');
 const modelWindow = document.querySelector('.modal');
 const winWindow = document.querySelector('.win');
 const loseWindow = document.querySelector('.lose');
-let resultScore = document.querySelector('.modelScoreNumber');
+let resultScore = document.querySelectorAll('.modelScoreNumber');
 
 let mode = 12;
 
@@ -167,7 +167,6 @@ document.addEventListener('click', function (e) {
   let flip = e.target.closest('.flipper').classList.toggle('is-flipped');
   let cardId = { id: e.target.closest('.flip-container').getAttribute('id'), key: e.target.closest('.flip-container').getAttribute('data-key') };
   let cardDiv = e.target.closest('.flip-container');
-  console.log(cardDiv);
 
   addingToArr(cardId, cardDiv);
 });
@@ -212,7 +211,7 @@ function matching () {
     scoreDiv.innerHTML = score + 10;
     cardsLeft();
     
-  } else if (cardValue[0] !== cardValue[1]) {
+  } else if (cardValue[0] !== cardValue[1] && !isSameCard) {
     scoreDiv.innerHTML = score - 5;
 
     setTimeout(function () {
@@ -220,6 +219,7 @@ function matching () {
       cardTwo.querySelector('.flipper').classList.toggle('is-flipped');
     }, 500);
   };
+  console.log(scoreDiv.innerText);
   cardStorage = [];
   cardValue = [];
   
@@ -229,7 +229,7 @@ function matching () {
 // --------------------------------- Win \ Lose ----------------------------//
 
   function win () {
-    resultScore.innerText = scoreDiv.innerText;
+    resultScore.innerText = rate();
     modelWindow.style.visibility = 'visible';
     winWindow.style.visibility = 'visible';
 
@@ -242,7 +242,7 @@ function matching () {
   };
 
   function lose () {
-    resultScore.innerText = scoreDiv.innerText;
+    resultScore.innerText = rate();
     modelWindow.style.visibility = 'visible';
     loseWindow.style.visibility = 'visible';
 
@@ -252,6 +252,17 @@ function matching () {
       reset();
     }, 2000);
   };
+
+// --------------------------------- Win \ Lose ----------------------------//
+
+// --------------------------------- Win \ Lose ----------------------------//
+
+function rate () {
+  let modelResult = resultScore.forEach(function (el) {
+     return el.innerText = +scoreDiv.innerText;
+  });
+}
+  
 
 // --------------------------------- Win \ Lose ----------------------------//
 
