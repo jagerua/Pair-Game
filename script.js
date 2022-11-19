@@ -94,7 +94,7 @@ let cardsRender = function (arr) {
   for (let i = 0; i < arr.length; i++) {
       let element = arr[i];
       itemsStr += (`
-        <div id="${element.id}" class="flip-container cards ${element.class}";>
+        <div id="${element.id}" data-key='${element.id}-${i}' class="flip-container cards ${element.class}";>
           <div class="flipper">
             <div class="front">
               <img src="./assets/backCard.png" alt="">
@@ -163,13 +163,14 @@ let counter = 0;
 
 // ---------------------------- Rotate card on click ------------------------//
 
-  document.addEventListener('click', function (e) {
-    let flip = e.target.closest('.flipper').classList.toggle('is-flipped');
-    let cardId = e.target.closest('.flip-container').getAttribute('id');
-    let cardDiv = e.target.closest('.flip-container');
+document.addEventListener('click', function (e) {
+  let flip = e.target.closest('.flipper').classList.toggle('is-flipped');
+  let cardId = { id: e.target.closest('.flip-container').getAttribute('id'), key: e.target.closest('.flip-container').getAttribute('data-key') };
+  let cardDiv = e.target.closest('.flip-container');
+  console.log(cardDiv);
 
-    addingToArr(cardId, cardDiv);
-  });
+  addingToArr(cardId, cardDiv);
+});
   
 // ---------------------------- Rotate card on click ------------------------//
 
@@ -194,8 +195,12 @@ function matching () {
   let score = +document.querySelector('.scoreNum').innerHTML;
   let cardOne = cardStorage[0];
   let cardTwo = cardStorage[1];
+  console.log(cardOne);
+  console.log(cardTwo);
 
-  if (cardValue[0] === cardValue[1]) {
+  // console.log(cardStorage[0].classList.contains('.open') === cardStorage[1].classList.contains('.open'));
+  const isSameCard = cardValue[0].key === cardValue[1].key;
+  if (cardValue[0].id === cardValue[1].id && !isSameCard) {
     cardOne.classList.add('match');
     cardTwo.classList.add('match');
     cardOne.removeEventListener('click', function (e) {
@@ -206,13 +211,15 @@ function matching () {
     });
     scoreDiv.innerHTML = score + 10;
     cardsLeft();
+    
   } else if (cardValue[0] !== cardValue[1]) {
     scoreDiv.innerHTML = score - 5;
+
     setTimeout(function () {
-      cardTwo.querySelector('.flipper').classList.toggle('is-flipped');
       cardOne.querySelector('.flipper').classList.toggle('is-flipped');
+      cardTwo.querySelector('.flipper').classList.toggle('is-flipped');
     }, 500);
-  }
+  };
   cardStorage = [];
   cardValue = [];
   
