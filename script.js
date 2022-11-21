@@ -169,7 +169,6 @@ document.addEventListener('click', function (e) {
   let flip = e.target.closest('.flipper').classList.toggle('is-flipped');
   let cardId = { id: e.target.closest('.flip-container').getAttribute('id'), key: e.target.closest('.flip-container').getAttribute('data-key') };
   let cardDiv = e.target.closest('.flip-container');
-  // cardsFalling();
 
   addingToArr(cardId, cardDiv);
 });
@@ -237,8 +236,8 @@ function matching () {
     pairsHave.forEach( function (el) {
       el.classList.remove('match');
     })
-    cardsFalling();
     resultScore.innerText = rate();
+    cardsFalling();
     modelWindow.style.visibility = 'visible';
     winWindow.style.visibility = 'visible';
     winWindow.style.top = '450px';
@@ -257,8 +256,8 @@ function matching () {
     pairsHave.forEach( function (el) {
       el.classList.remove('match');
     })
-    cardsFalling();
     resultScore.innerText = rate();
+    cardsFalling();
     modelWindow.style.visibility = 'visible';
     loseWindow.style.visibility = 'visible';
     loseWindow.style.top = '450px';
@@ -292,7 +291,7 @@ function cardsLeft () {
     // 
     if (scoreDiv.innerHTML > 0) {
       win();
-    } else {
+    } else if (scoreDiv.innerHTML < 0) {
       lose();
     }
   };
