@@ -103,7 +103,7 @@ let cardsRender = function (arr) {
               <img src="${element.imgSrc}" alt="">
             </div>
           </div>
-        </div>`);
+      </div>`);
   }
   return itemsStr;
 };
@@ -134,7 +134,7 @@ easyBtn.addEventListener('click', function () {
   } else {
     cardsTable.innerHTML = '';
     showMode();
-    // reset();
+    reset();
   };
 });
 
@@ -151,8 +151,8 @@ hardBtn.addEventListener('click', function () {
   } else {
     cardsTable.innerHTML = '';
     showMode();
+    reset();
   };
-  // reset();
 });
 
 // -------------------------- Making Easy & Hard modes ----------------------//
@@ -232,25 +232,29 @@ function matching () {
     resultScore.innerText = rate();
     modelWindow.style.visibility = 'visible';
     winWindow.style.visibility = 'visible';
+    winWindow.style.top = '450px';
 
 // Hide Win screen after some time
     setTimeout(function () {
-      reset();
       modelWindow.style.visibility = 'hidden';
       winWindow.style.visibility = 'hidden';
-    }, 2000);
+      winWindow.style.top = '-450px';
+      reset();
+    }, 2022);
   };
 
   function lose () {
     resultScore.innerText = rate();
     modelWindow.style.visibility = 'visible';
     loseWindow.style.visibility = 'visible';
+    loseWindow.style.top = '450px';
 
     setTimeout(function () {
       reset();
       modelWindow.style.visibility = 'hidden';
       loseWindow.style.visibility = 'hidden';
-    }, 2000);
+      loseWindow.style.top = '-450px';
+    }, 2022);
   };
 
 // --------------------------------- Win \ Lose ----------------------------//
@@ -287,7 +291,7 @@ function cardsLeft () {
     let pairsHave = document.querySelectorAll(`.match`);
     let allCards = document.querySelectorAll('.cards');
     allCards.forEach (function (el) {
-      el.querySelector('.flipper').classList.toggle('is-flipped');
+      el.querySelector('.flipper').classList.remove('is-flipped');
     })
     pairsHave.forEach( function (el) {
       el.classList.remove('match');
