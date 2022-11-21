@@ -94,6 +94,7 @@ let cardsRender = function (arr) {
   for (let i = 0; i < arr.length; i++) {
       let element = arr[i];
       itemsStr += (`
+      <div class="cardWrapper">
         <div id="${element.id}" data-key='${element.id}-${i}' class="flip-container cards ${element.class}";>
           <div class="flipper">
             <div class="front">
@@ -102,7 +103,8 @@ let cardsRender = function (arr) {
             <div class="back">
               <img src="${element.imgSrc}" alt="">
             </div>
-          </div>
+          </div>  
+        </div>
       </div>`);
   }
   return itemsStr;
@@ -167,6 +169,7 @@ document.addEventListener('click', function (e) {
   let flip = e.target.closest('.flipper').classList.toggle('is-flipped');
   let cardId = { id: e.target.closest('.flip-container').getAttribute('id'), key: e.target.closest('.flip-container').getAttribute('data-key') };
   let cardDiv = e.target.closest('.flip-container');
+  // cardsFalling();
 
   addingToArr(cardId, cardDiv);
 });
@@ -199,6 +202,7 @@ function matching () {
 
   // console.log(cardStorage[0].classList.contains('.open') === cardStorage[1].classList.contains('.open'));
   const isSameCard = cardValue[0].key === cardValue[1].key;
+
   if (cardValue[0].id === cardValue[1].id && !isSameCard) {
     cardOne.classList.add('match');
     cardTwo.classList.add('match');
@@ -211,7 +215,7 @@ function matching () {
     scoreDiv.innerHTML = score + 10;
     cardsLeft();
     
-  } else if (cardValue[0] !== cardValue[1] && !isSameCard) {
+  } else if (cardValue[0] !== cardValue[1]) {
     scoreDiv.innerHTML = score - 5;
 
     setTimeout(function () {
@@ -229,12 +233,17 @@ function matching () {
 // --------------------------------- Win \ Lose ----------------------------//
 
   function win () {
+    let pairsHave = document.querySelectorAll(`.match`);
+    pairsHave.forEach( function (el) {
+      el.classList.remove('match');
+    })
+    cardsFalling();
     resultScore.innerText = rate();
     modelWindow.style.visibility = 'visible';
     winWindow.style.visibility = 'visible';
     winWindow.style.top = '450px';
-
-// Hide Win screen after some time
+    
+    // Hide Win screen after some time
     setTimeout(function () {
       modelWindow.style.visibility = 'hidden';
       winWindow.style.visibility = 'hidden';
@@ -244,16 +253,21 @@ function matching () {
   };
 
   function lose () {
+    let pairsHave = document.querySelectorAll(`.match`);
+    pairsHave.forEach( function (el) {
+      el.classList.remove('match');
+    })
+    cardsFalling();
     resultScore.innerText = rate();
     modelWindow.style.visibility = 'visible';
     loseWindow.style.visibility = 'visible';
     loseWindow.style.top = '450px';
-
+    
     setTimeout(function () {
-      reset();
       modelWindow.style.visibility = 'hidden';
       loseWindow.style.visibility = 'hidden';
       loseWindow.style.top = '-450px';
+      reset();
     }, 2022);
   };
 
@@ -292,10 +306,10 @@ function cardsLeft () {
     let allCards = document.querySelectorAll('.cards');
     allCards.forEach (function (el) {
       el.querySelector('.flipper').classList.remove('is-flipped');
-    })
+    });
     pairsHave.forEach( function (el) {
       el.classList.remove('match');
-    })
+    });
     scoreDiv.innerHTML = 0;
   };
 
@@ -315,3 +329,14 @@ function cardsLeft () {
   });
 
 // ----------------------------------- Reset -------------------------------//
+
+// --------------------------- Falling cards animation ---------------------//
+
+  function cardsFalling () {
+    let allCards = document.querySelectorAll('.cards');
+
+    allCards.forEach (function (el) {
+      el.setAttribute("style", `transform: rotate3d(` + Math.floor(Math.random() * 9 + 5) +`, ` + Math.floor(Math.random() * 9 + 5) +`, ` + Math.floor(Math.random() * 9 + 5) +`, ` + Math.floor(Math.random() * 100 + -50) + `deg); top: 1550px; transition: top ` + ((Math.floor(Math.random() * 70) / 5) + `s ease, transform 4.5s ease;`));
+    });
+  }
+// --------------------------- Falling cards animation ---------------------//

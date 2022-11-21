@@ -113,6 +113,7 @@
 .lose {
   visibility: hidden;
   position: absolute;
+  top: -500px;
   width: 430px;
   height: 300px;
   border-radius: 40% 40% 15px 15px;
@@ -148,6 +149,16 @@
   text-shadow: 6px 0 black, 0 3px black, 3px 0 black, 0 3px black;
 }
 
+/* No text select on the cards */
+body {
+  -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
 main {
   width: 100%;
   min-height: 100vh;
@@ -156,6 +167,7 @@ main {
   background-attachment: fixed;
   background-position: center;
   background-size: cover;
+  overflow: hidden;
 }
 
 header {
@@ -284,9 +296,9 @@ button {
 }
 
 .cards {
-  /* position: absolute;
+  position: absolute;
   top: 0;
-  left: 0; */
+  left: 0;
   /* display: flex;
   justify-content: center;
   align-items: center; */
@@ -294,7 +306,7 @@ button {
   height: 150px; */
   font-size: 18px;
   border-radius: 15px;
-  /* transition: 0.5s; */
+  /* transition: top 6.5s ease, transform 4.5s ease; */
 }
 
 .cardWrapper {
@@ -304,6 +316,7 @@ button {
   align-items: center;
   width: 100px;
   height: 150px;
+  opacity: 1;
 }
 
 .flip-container {
