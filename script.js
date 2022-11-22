@@ -126,7 +126,7 @@ showMode();
 
 // Click on Easy Btn to show 12 cards and refresh them
 easyBtn.addEventListener('click', function () {
-  cardsTable.style.gridTemplateColumns = '100px 100px 100px 100px';
+  cardsTable.style.gridTemplateColumns = 'auto auto auto auto';
   cardsTable.style.justifyContent = 'center';
   cardsTable.style.alignContent = 'center';
   mode = 6;
@@ -142,7 +142,7 @@ easyBtn.addEventListener('click', function () {
 
 // Click on Hard Btn to show 6 cards and refresh them
 hardBtn.addEventListener('click', function () {
-  cardsTable.style.gridTemplateColumns = '100px 100px 100px 100px 100px 100px';
+  cardsTable.style.gridTemplateColumns = 'auto auto auto auto auto auto';
   cardsTable.style.removeProperty("justifyContent");
   cardsTable.style.removeProperty("alignContent");
   mode = 12;
