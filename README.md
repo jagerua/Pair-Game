@@ -1,4 +1,4 @@
 # Simpsons Pair-Game
 Work In Progress
 
-[Simpsons Pair-Game demo](https://jagerua.github.io/Pair-Game/)
+[Simpsons Pair-Game demo](https://jagerua.github.io/pair-game/)
