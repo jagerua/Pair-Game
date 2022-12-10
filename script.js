@@ -10,6 +10,8 @@ const winWindow = document.querySelector('.win');
 const loseWindow = document.querySelector('.lose');
 let resultScore = document.querySelectorAll('.modelScoreNumber');
 
+let docTitle = document.title;
+
 let mode = 12;
 
 const cardsArr = [
@@ -86,6 +88,13 @@ const cardsArr = [
     class: 'card12'
   }
 ];
+
+window.addEventListener('blur', () => {
+  document.title = 'Come back here';
+});
+window.addEventListener('focus', () => {
+  document.title = docTitle;
+})
 
 // ------------------------------------ Card render --------------------------//
 let cardsRender = function (arr) {
